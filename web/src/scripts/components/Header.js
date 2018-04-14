@@ -9,7 +9,7 @@ import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
 
-const styles = {
+const styles = theme => ({
     list: {
       width: 350,
     },
@@ -19,7 +19,7 @@ const styles = {
       position: 'absolute',
       left: 0
     }
-};
+});
 
 class Header extends React.Component {   
     state = {

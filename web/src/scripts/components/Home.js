@@ -1,19 +1,34 @@
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
 import DataStore from 'flux/stores/DataStore.js';
 import orange from 'material-ui/colors/orange';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
+import Grid from 'material-ui/Grid';
+import Avatar from 'material-ui/Avatar';
+import Typography from 'material-ui/Typography';
 
 const primary = orange[500]; // #FF9800
 
-const styles = {
+const styles = theme => ({
     list: {
       width: 350,
-    }
-};
+    },
+    root: {
+        overflow: 'hidden',
+        padding: `0 ${theme.spacing.unit * 3}px`,
+    },
+    wrapper: {
+        maxWidth: 400,
+    },
+    paper: {
+        margin: theme.spacing.unit,
+        padding: theme.spacing.unit * 2,
+    },
+});
 
 class Home extends React.Component {
     state = {
@@ -41,19 +56,34 @@ class Home extends React.Component {
 
         return (
             <div>
-                <Button onClick={this.rightDrawer('right', true)} variant="raised" color="primary">
-                    Introduction
-                </Button>
-                <Button variant="raised" color="primary">
-                    <Link to="/profile-etendu" style={{marginRight: '10px'}} >Profil étendu</Link>
-                </Button>
+                <div className={classes.root}>
+                    <div className={classes.wrapper}>
 
-                <h2>nicolas-figueira</h2>
-                <h1>{pageData.title.rendered}</h1>
+                        <Paper className={classes.paper}>
+                            <Grid container wrap="nowrap" spacing={16}>
+                                <Grid item>
+                                <Avatar>W</Avatar>
+                                </Grid>
+                                <Grid item xs zeroMinWidth>
+                                <div wrap="nowrap">
+                                    <h1>{pageData.title.rendered}</h1>
+                                    <div dangerouslySetInnerHTML={{__html: pageData.excerpt.rendered}} />
+                                    <div>{pageData.content.rendered}</div>
+                                </div>
+                                </Grid>
+                            </Grid>
+                        </Paper>
 
-                <div dangerouslySetInnerHTML={{__html: pageData.excerpt.rendered}} />
-                <div>{pageData.content.rendered}</div>
+                        <Button className={classes.paper} onClick={this.rightDrawer('right', true)} variant="raised" color="primary">
+                            Introduction
+                        </Button>
+                        <Button className={classes.paper} to="/profile-etendu" variant="raised" color="primary">
+                            Profil étendu
+                        </Button>
 
+                    </div>
+                </div>
+                
 
                   <Drawer anchor="right" open={this.state.right} onClose={this.rightDrawer('right', false)}>
                     <div

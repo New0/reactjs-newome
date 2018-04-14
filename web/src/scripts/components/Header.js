@@ -1,6 +1,5 @@
 import {Link} from 'react-router-dom';
 import DataStore from 'flux/stores/DataStore.js';
-//import AppBar from 'material-ui/AppBar';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -8,22 +7,23 @@ import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
+import Icon from 'material-ui/Icon';
 
 const styles = {
     list: {
-      width: 250,
+      width: 350,
     },
-    fullList: {
-      width: 'auto',
-    },
-  };
+    leftSidebar: {
+      width: 88,
+      height: '100%',
+      position: 'absolute',
+      left: 0
+    }
+};
 
 class Header extends React.Component {   
     state = {
-        top: false,
-        left: false,
-        bottom: false,
-        right: false,
+        left: false
       };
     
       toggleDrawer = (side, open) => () => {
@@ -65,7 +65,8 @@ class Header extends React.Component {
 
         return (
             <div className="header">
-                <Button onClick={this.toggleDrawer('left', true)}>Open Left</Button>
+                <Button onClick={this.toggleDrawer('left', true)}><Icon className={classes.icon}>menu</Icon></Button>
+                <div className={classes.leftSidebar}></div>
 
                 <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
                     <div
@@ -77,7 +78,6 @@ class Header extends React.Component {
                         {sideList}
                     </div>
                 </Drawer>
-
                
             </div>
         );
@@ -86,6 +86,6 @@ class Header extends React.Component {
 
 Header.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
+};
 
-export default  withStyles(styles)(Header);
+export default  withStyles(styles)(Header);  

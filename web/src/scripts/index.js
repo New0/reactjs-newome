@@ -14,6 +14,10 @@ import {
     Switch
 } from 'react-router-dom';
 
+import CssBaseline from 'material-ui/CssBaseline';
+import orange from 'material-ui/colors/orange';
+
+const primary = orange[500]; // #FF9800
 
 class AppInitializer {
 
@@ -39,8 +43,10 @@ class AppInitializer {
     run() {
         DataActions.getPages((response)=>{
             render(
+                    
                 <Router>
                     <div>
+                        <CssBaseline />
                         <Header />
 
                         <Switch>

@@ -28,6 +28,9 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         padding: theme.spacing.unit * 2,
     },
+    rightDrawer: {
+        width: "80%",
+    }
 });
 
 class Home extends React.Component {
@@ -68,7 +71,6 @@ class Home extends React.Component {
                                 <div wrap="nowrap">
                                     <h1>{pageData.title.rendered}</h1>
                                     <div dangerouslySetInnerHTML={{__html: pageData.excerpt.rendered}} />
-                                    <div>{pageData.content.rendered}</div>
                                 </div>
                                 </Grid>
                             </Grid>
@@ -85,7 +87,7 @@ class Home extends React.Component {
                 </div>
                 
 
-                  <Drawer anchor="right" open={this.state.right} onClose={this.rightDrawer('right', false)}>
+                  <Drawer classes={classes.rightDrawer} anchor="right" open={this.state.right} onClose={this.rightDrawer('right', false)}>
                     <div
                         tabIndex={0}
                         role="button"

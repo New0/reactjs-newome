@@ -12,12 +12,6 @@ import Icon from 'material-ui/Icon';
 const styles = theme => ({
     list: {
       width: 350,
-    },
-    leftSidebar: {
-      width: 88,
-      height: '100%',
-      position: 'absolute',
-      left: 0
     }
 });
 
@@ -66,7 +60,6 @@ class Header extends React.Component {
         return (
             <div className="header">
                 <Button onClick={this.toggleDrawer('left', true)}><Icon className={classes.icon}>menu</Icon></Button>
-                <div className={classes.leftSidebar}></div>
 
                 <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
                     <div

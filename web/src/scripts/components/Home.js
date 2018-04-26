@@ -12,9 +12,12 @@ import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import orange from 'material-ui/colors/orange';
 import red from 'material-ui/colors/red';
+import grey from 'material-ui/colors/grey';
 
 const commonOrange = orange[500];
 const commonRed = red[500];
+const darkRed = red[900];
+const softGrey = grey[200];
 
 const styles = theme => ({
     list: {
@@ -23,15 +26,17 @@ const styles = theme => ({
     redBackground: {
        backgroundColor: commonRed,
     },
-    root: {
+    container: {
         overflow: 'hidden',
-        padding: '0 ${theme.spacing.unit * 3}px',
         fontFamily: '"Oxygen", sans-serif',
         float: 'left',
+        width: '50vw',
+        height: '100vh'
     },
     wrapper: {
-        maxWidth: 400,
         backgroundColor: commonOrange,
+        height: '100vh',
+        padding: '10% 0 0 10%',
     },
     paper: {
         margin: theme.spacing.unit,
@@ -58,6 +63,7 @@ class Home extends React.Component {
 
     render() {
         let pageData = DataStore.getPageBySlug('nicolas-figueira');
+        let globalData = DataStore.getAll();
 
         const { classes } = this.props;
 
@@ -71,8 +77,10 @@ class Home extends React.Component {
 
         return (
             <div>
-                <grid container className={classes.root} spacing={16}>
-                    <grid item className={classes.wrapper} xs={6} >
+                <div className={classes.container}>
+                    <div className={classes.wrapper} >
+
+                        <h1>{globalData.global.name}</h1>
 
                         <Paper className={classes.paper}>
                             <Grid container wrap="nowrap" spacing={16}>
@@ -95,8 +103,8 @@ class Home extends React.Component {
                             Profil étendu
                         </Button>
 
-                    </grid>
-                </grid>
+                    </div>
+                </div>
                 
 
                 <Drawer classes={classes.rightDrawer} anchor="right" open={this.state.right} onClose={this.rightDrawer('right', false)}>

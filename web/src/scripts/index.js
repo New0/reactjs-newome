@@ -16,6 +16,11 @@ import {
 
 import CssBaseline from 'material-ui/CssBaseline';
 
+import deepOrange from 'material-ui/colors/deepOrange';
+
+const orange = deepOrange[500];
+const red = deepOrange.A700;
+
 class AppInitializer {
 
     templates = {

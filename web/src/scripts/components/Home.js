@@ -1,35 +1,47 @@
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
 import DataStore from 'flux/stores/DataStore.js';
-import orange from 'material-ui/colors/orange';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
+import orange from 'material-ui/colors/orange';
+import red from 'material-ui/colors/red';
 
-const primary = orange[500]; // #FF9800
+const commonOrange = orange[500];
+const commonRed = red[500];
 
 const styles = theme => ({
     list: {
-      width: 350,
+        width: '80vw',
+    },
+    redBackground: {
+       backgroundColor: commonRed,
     },
     root: {
         overflow: 'hidden',
-        padding: `0 ${theme.spacing.unit * 3}px`,
+        padding: '0 ${theme.spacing.unit * 3}px',
+        fontFamily: '"Oxygen", sans-serif',
+        float: 'left',
     },
     wrapper: {
         maxWidth: 400,
+        backgroundColor: commonOrange,
     },
     paper: {
         margin: theme.spacing.unit,
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing.unit * 2, 
     },
     rightDrawer: {
-        width: "80%",
+       
+    },
+    inRightDrawer: {
+       
     }
 });
 
@@ -59,8 +71,8 @@ class Home extends React.Component {
 
         return (
             <div>
-                <div className={classes.root}>
-                    <div className={classes.wrapper}>
+                <grid container className={classes.root} spacing={16}>
+                    <grid item className={classes.wrapper} xs={6} >
 
                         <Paper className={classes.paper}>
                             <Grid container wrap="nowrap" spacing={16}>
@@ -76,19 +88,20 @@ class Home extends React.Component {
                             </Grid>
                         </Paper>
 
-                        <Button className={classes.paper} onClick={this.rightDrawer('right', true)} variant="raised" color="primary">
+                        <Button className={classNames(classes.paper, classes.redBackground)} onClick={this.rightDrawer('right', true)} variant="raised" color="primary">
                             Introduction
                         </Button>
-                        <Button className={classes.paper} to="/profile-etendu" variant="raised" color="primary">
+                        <Button className={classNames(classes.paper, classes.redBackground)} to="/profile-etendu" variant="raised" color="primary">
                             Profil étendu
                         </Button>
 
-                    </div>
-                </div>
+                    </grid>
+                </grid>
                 
 
-                  <Drawer classes={classes.rightDrawer} anchor="right" open={this.state.right} onClose={this.rightDrawer('right', false)}>
+                <Drawer classes={classes.rightDrawer} anchor="right" open={this.state.right} onClose={this.rightDrawer('right', false)}>
                     <div
+                        className={classes.inRightDrawer}
                         tabIndex={0}
                         role="button"
                         onClick={this.rightDrawer('right', false)}

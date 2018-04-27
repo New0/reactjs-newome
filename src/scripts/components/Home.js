@@ -26,6 +26,16 @@ const styles = theme => ({
     redBackground: {
        backgroundColor: commonRed,
     },
+    rightTitle: {
+        position: 'absolute',
+        top: '5%',
+        right: '5%',
+        color: commonRed,
+        fontFamily: '"Oxygen", sans-serif',
+        width: 320,
+        padding: '1rem',
+        fontWeight: 'bold'
+    },
     container: {
         overflow: 'hidden',
         fontFamily: '"Oxygen", sans-serif',
@@ -37,10 +47,15 @@ const styles = theme => ({
         backgroundColor: commonOrange,
         height: '100vh',
         padding: '10% 0 0 10%',
+        color: 'white'
     },
     paper: {
         margin: theme.spacing.unit,
         padding: theme.spacing.unit * 2, 
+    },
+    alignCenter: {
+        textAlign: 'center',
+        margin: '0 auto'
     },
     rightDrawer: {
        
@@ -64,44 +79,38 @@ class Home extends React.Component {
     render() {
         let pageData = DataStore.getPageBySlug('nicolas-figueira');
         let globalData = DataStore.getAll();
-
+console.log(pageData);
         const { classes } = this.props;
 
         const sideList = (
           <div className={classes.list}>
              <Link to="/" style={{marginRight: '10px'}} >Home</Link>
              <Divider />
-             <p>{pageData.content.rendered}</p>
+             <div dangerouslySetInnerHTML={{__html: pageData.content.rendered}} />
           </div>
         );
 
         return (
             <div>
+                <div className={classes.rightTitle}>
+                    <h1>{globalData.global.name}</h1>
+                </div>
                 <div className={classes.container}>
                     <div className={classes.wrapper} >
 
-                        <h1>{globalData.global.name}</h1>
-
-                        <Paper className={classes.paper}>
-                            <Grid container wrap="nowrap" spacing={16}>
-                                <Grid item>
-                                <Avatar>W</Avatar>
-                                </Grid>
-                                <Grid item xs zeroMinWidth>
-                                <div wrap="nowrap">
-                                    <h1>{pageData.title.rendered}</h1>
-                                    <div dangerouslySetInnerHTML={{__html: pageData.excerpt.rendered}} />
-                                </div>
-                                </Grid>
-                            </Grid>
-                        </Paper>
-
-                        <Button className={classNames(classes.paper, classes.redBackground)} onClick={this.rightDrawer('right', true)} variant="raised" color="primary">
-                            Introduction
-                        </Button>
-                        <Button className={classNames(classes.paper, classes.redBackground)} to="/profile-etendu" variant="raised" color="primary">
-                            Profil étendu
-                        </Button>
+                        <h2 className={classes.alignCenter}>{pageData.title.rendered}</h2>
+                        <div dangerouslySetInnerHTML={{__html: pageData.intro[0]}} />
+                        <div dangerouslySetInnerHTML={{__html: pageData.tel[0]}} />
+                        <div dangerouslySetInnerHTML={{__html: pageData.email[0]}} />
+                                
+                        <div>
+                            <Button className={classNames(classes.paper, classes.redBackground)} onClick={this.rightDrawer('right', true)} variant="raised" color="primary">
+                                {pageData.bouton_gauche[0]}
+                            </Button>
+                            <Button className={classNames(classes.paper, classes.redBackground)} to="/profile-etendu" variant="raised" color="primary">
+                                {pageData.bouton_droite[0]}
+                            </Button>
+                        </div>
 
                     </div>
                 </div>

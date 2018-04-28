@@ -20,8 +20,21 @@ const darkRed = red[900];
 const softGrey = grey[200];
 
 const styles = theme => ({
+    typography: {
+        // Tell Material-UI what's the font-size on the html element is.
+        htmlFontSize: 16,
+    },
     list: {
         width: '80vw',
+        height: '100vh',
+        backgroundColor: commonOrange,
+        padding: '5%',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        color: 'white',
+        fontFamily: '"Oxygen", sans-serif',
+        fontSize: '120%'
+
     },
     redBackground: {
     backgroundColor: commonRed,
@@ -52,6 +65,7 @@ const styles = theme => ({
         height: '100vh',
         zIndex: '-5',
         backgroundColor: commonOrange,
+        fontSize: '120%'
     },
     wrapper: {
         height: '100%',
@@ -95,8 +109,6 @@ class Home extends React.Component {
 
         const sideList = (
           <div className={classes.list}>
-             <Link to="/" style={{marginRight: '10px'}} >Home</Link>
-             <Divider />
              <div dangerouslySetInnerHTML={{__html: pageData.content.rendered}} />
           </div>
         );
@@ -117,14 +129,10 @@ class Home extends React.Component {
                         <Grid container justify="center" spacing="40">
                             
                             <Grid key="0" item>
-                                <Link to={telLink} target="_blank" title="Tel WordPress developer">
-                                    <div dangerouslySetInnerHTML={{__html: pageData.tel[0]}} />
-                                </Link>
+                                <Link to={telLink} target="_blank" title="Tel WordPress developer" style={{color: 'white', textDecoration: 'none', '&:hover': {textDecoration: 'underline'} }}>{pageData.tel[0]}</Link>
                             </Grid>
                             <Grid key="1" item>
-                                <Link to={mailLink} target="_blank" title="Mail WordPress developer">
-                                    <div dangerouslySetInnerHTML={{__html: pageData.email[0]}} />
-                                </Link>
+                                <Link to={mailLink} target="_blank" title="Email WordPress developer" style={{color: 'white', textDecoration: 'none', '&:hover': {textDecoration: 'underline'} }}>{pageData.email[0]}</Link>
                             </Grid>
                             
                         </Grid>

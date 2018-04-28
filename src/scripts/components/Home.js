@@ -24,7 +24,14 @@ const styles = theme => ({
         width: '80vw',
     },
     redBackground: {
-       backgroundColor: commonRed,
+    backgroundColor: commonRed,
+    '&:hover': {
+        backgroundColor: darkRed,
+    }
+    },
+    whiteDivider: {
+        backgroundColor: 'white',
+        margin: '3rem 0',
     },
     rightTitle: {
         position: 'absolute',
@@ -37,16 +44,18 @@ const styles = theme => ({
         fontWeight: 'bold'
     },
     container: {
-        overflow: 'hidden',
+        overflowX: 'hidden',
+        overflowY: 'auto',
         fontFamily: '"Oxygen", sans-serif',
-        float: 'left',
         width: '50vw',
-        height: '100vh'
+        height: '100%',
+        height: '100vh',
+        zIndex: '-5',
+        backgroundColor: commonOrange,
     },
     wrapper: {
-        backgroundColor: commonOrange,
-        height: '100vh',
-        padding: '10% 0 0 10%',
+        height: '100%',
+        padding: '15% 10% 10%',
         color: 'white'
     },
     paper: {
@@ -58,28 +67,30 @@ const styles = theme => ({
         margin: '0 auto'
     },
     rightDrawer: {
-       
+    
     },
     inRightDrawer: {
-       
+    
     }
 });
 
 class Home extends React.Component {
     state = {
         right: false
-      };
+    };
     
-      rightDrawer = (side, open) => () => {
+    rightDrawer = (side, open) => () => {
         this.setState({
-          [side]: open,
+            [side]: open,
         });
-      };
+    };
 
     render() {
         let pageData = DataStore.getPageBySlug('nicolas-figueira');
         let globalData = DataStore.getAll();
-console.log(pageData);
+        let telLink = 'tel:' + pageData.tel[0];
+        let mailLink = 'mailto:' + pageData.email[0];
+
         const { classes } = this.props;
 
         const sideList = (
@@ -98,18 +109,43 @@ console.log(pageData);
                 <div className={classes.container}>
                     <div className={classes.wrapper} >
 
-                        <h2 className={classes.alignCenter}>{pageData.title.rendered}</h2>
-                        <div dangerouslySetInnerHTML={{__html: pageData.intro[0]}} />
-                        <div dangerouslySetInnerHTML={{__html: pageData.tel[0]}} />
-                        <div dangerouslySetInnerHTML={{__html: pageData.email[0]}} />
-                                
-                        <div>
-                            <Button className={classNames(classes.paper, classes.redBackground)} onClick={this.rightDrawer('right', true)} variant="raised" color="primary">
-                                {pageData.bouton_gauche[0]}
-                            </Button>
-                            <Button className={classNames(classes.paper, classes.redBackground)} to="/profile-etendu" variant="raised" color="primary">
-                                {pageData.bouton_droite[0]}
-                            </Button>
+                        <h2>{globalData.global.description}</h2>
+                        <h3 className={classes.alignCenter}>{pageData.title.rendered}</h3>
+
+                        <Divider className={classes.whiteDivider} />
+
+                        <Grid container justify="center" spacing="40">
+                            
+                            <Grid key="0" item>
+                                <Link to={telLink} target="_blank" title="Tel WordPress developer">
+                                    <div dangerouslySetInnerHTML={{__html: pageData.tel[0]}} />
+                                </Link>
+                            </Grid>
+                            <Grid key="1" item>
+                                <Link to={mailLink} target="_blank" title="Mail WordPress developer">
+                                    <div dangerouslySetInnerHTML={{__html: pageData.email[0]}} />
+                                </Link>
+                            </Grid>
+                            
+                        </Grid>
+
+                        <Divider className={classes.whiteDivider} />   
+
+                        <div className={classes.alignCenter}>
+
+                            <Grid container justify="center" spacing="40">
+                                <Grid key="0" item>
+                                    <Button className={classNames(classes.paper, classes.redBackground)} onClick={this.rightDrawer('right', true)} variant="raised" color="primary">
+                                        {pageData.bouton_gauche[0]}
+                                    </Button>
+                                </Grid>
+                                <Grid key="1" item>
+                                    <Button className={classNames(classes.paper, classes.redBackground)} to="/profile-etendu" variant="raised" color="primary">
+                                        {pageData.bouton_droite[0]}
+                                    </Button>
+                                </Grid>        
+                            </Grid>
+     
                         </div>
 
                     </div>

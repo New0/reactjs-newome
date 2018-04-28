@@ -99,8 +99,18 @@ const styles = theme => ({
         },
     },
     sideBack: {
-        height: '100vh'
+        height: '100vh',
     },
+    notice: {
+        position: 'absolute',
+        top: '0',
+        left: '25%',
+        padding: '1rem',
+        backgroundColor: 'white',
+        color: 'black',
+        fontFamily: '"Oxygen", sans-serif',
+        textAlign: 'center',
+    }
 });
 
 class Header extends React.Component {   
@@ -117,7 +127,7 @@ class Header extends React.Component {
     render() {
         let allPages = DataStore.getAllPages();
         allPages = _.sortBy(allPages, [function(page) { return page.menu_order; }]); // Sort pages by order
-
+        
         const { classes } = this.props;
 
         const sideList = (
@@ -153,6 +163,11 @@ class Header extends React.Component {
 
         return (
             <div className={classes.header}>
+                <div className={classes.notice}>
+                    WIP: This is a React Js App using WordPress content, as a headless CMS.
+                    <br />
+                    Orginal website at <Link style={{ color: 'black'}} to="https://newo.me" title="Web WordPress developer Newo.me" target="_blank">https://newo.me</Link>
+                </div>
                 <Button 
                 onClick={this.toggleDrawer('left', true)}
                 className={classNames(classes.redBackgroundIcon, classes.iconsLeft)}
